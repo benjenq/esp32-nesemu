@@ -131,33 +131,17 @@ config HW_LCD_BL_GPIO
 	default HW_LCD_BL_GPIO_CUST if HW_CUSTOM
 	default 5 if HW_WROVERKIT
 
+
 config SOUND_ENA
-    bool "Enable external I2S audio"
-    default n
-    help
-        Enable audio output using an external I2S DAC (MAX98357A or PCM5102).
+	bool "Analog audio on GPIO26"
+	default n
+	help 
+		ESP32 will output 0-3.3V analog audio signal on GPIO26.
 
-config I2S_BCLK_PIN
-    int "Audio I2S BCLK pin"
-	depends on SOUND_ENA
-	range 1 35
-    default 26
-
-config I2S_LRCK_PIN
-    int "Audio I2S LRCK/WS pin"
-	depends on SOUND_ENA
-	range 1 35
-    default 32
-
-config I2S_DATA_PIN
-    int "Audio I2S DATA pin"
-	depends on SOUND_ENA
-	range 1 35
-    default 33
 
 config HW_PSX_ENA
 	bool "Enable PSX controller input"
-	default n
+	default y
 	help
 		If you connect a PSX/PS2 controller to the following GPIOs, you can control the NES.
 

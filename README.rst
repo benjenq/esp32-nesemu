@@ -1,4 +1,4 @@
-Note: I fork from [espressif/esp32-nesemu](https://github.com/espressif/esp32-nesemu) for modify **Kconfig.projbuild** with setting -Custom hardware- to default and fix a bug "undeclare  HW_LCD_MISO_GPIO_CUST".
+This project has been reorganized for ESP-IDF v5.5.2 with Visual Studio Code
 
 ESP32-NESEMU, a Nintendo Entertainment System emulator for the ESP32
 ====================================================================

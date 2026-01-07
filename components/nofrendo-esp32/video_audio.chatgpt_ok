@@ -101,7 +101,7 @@ static void osd_stopsound(void)
    audio_callback = NULL;
 }
 
-/*
+
 static int osd_init_sound(void)
 {
 #if CONFIG_SOUND_ENA
@@ -122,52 +122,14 @@ static int osd_init_sound(void)
 
 	//I2S enables *both* DAC channels; we only need DAC1.
 	//ToDo: still needed now I2S supports set_dac_mode?
-	// //CLEAR_PERI_REG_MASK(RTC_IO_PAD_DAC1_REG, RTC_IO_PDAC1_DAC_XPD_FORCE_M);
-	// //CLEAR_PERI_REG_MASK(RTC_IO_PAD_DAC1_REG, RTC_IO_PDAC1_XPD_DAC_M);
+	/* CLEAR_PERI_REG_MASK(RTC_IO_PAD_DAC1_REG, RTC_IO_PDAC1_DAC_XPD_FORCE_M);
+	CLEAR_PERI_REG_MASK(RTC_IO_PAD_DAC1_REG, RTC_IO_PDAC1_XPD_DAC_M); */
 
 #endif
 
 	audio_callback = NULL;
 
 	return 0;
-}
-*/
-// 整段 osd_init_sound 由 ChatGPT 改寫
-static int osd_init_sound(void)
-{
-#if CONFIG_SOUND_ENA
-    audio_frame = malloc(4 * DEFAULT_FRAGSIZE);
-
-    i2s_config_t cfg = {
-        .mode = I2S_MODE_MASTER | I2S_MODE_TX,   // ✅ 外部 I2S
-        .sample_rate = DEFAULT_SAMPLERATE,
-        .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT,
-        .channel_format = I2S_CHANNEL_FMT_RIGHT_LEFT,
-        .communication_format = I2S_COMM_FORMAT_I2S_MSB,
-        .intr_alloc_flags = 0,
-        .dma_buf_count = 4,
-        .dma_buf_len = 512,
-        .use_apll = false,
-        .tx_desc_auto_clear = true,
-        .fixed_mclk = 0
-    };
-
-    i2s_driver_install(I2S_NUM_0, &cfg, 4, &queue);
-
-    // ✅ 指定外部 I2S 腳位
-    i2s_pin_config_t pin_config = {
-        .bck_io_num   = CONFIG_I2S_BCLK_PIN,
-        .ws_io_num    = CONFIG_I2S_LRCK_PIN,
-        .data_out_num = CONFIG_I2S_DATA_PIN,
-        .data_in_num  = I2S_PIN_NO_CHANGE
-    };
-
-    i2s_set_pin(I2S_NUM_0, &pin_config);
-    i2s_zero_dma_buffer(I2S_NUM_0);
-#endif
-
-    audio_callback = NULL;
-    return 0;
 }
 
 void osd_getsoundinfo(sndinfo_t *info)

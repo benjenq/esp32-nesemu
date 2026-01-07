@@ -71,7 +71,8 @@ static int psxSendRecv(int send) {
 
 static void psxDone() {
 	DELAY();
-	GPIO_REG_WRITE(GPIO_OUT_W1TS_REG, (1<<PSX_ATT));
+	//GPIO_REG_WRITE(GPIO_OUT_W1TS_REG, (1<<PSX_ATT));
+	gpio_set_level(PSX_ATT, 1); //gpio_set_level(PSX_ATT, 0); //如果你還有清除位元：
 }
 
 
@@ -98,13 +99,13 @@ void psxcontrollerInit() {
 			.mode=GPIO_MODE_OUTPUT, 
 			.pull_up_en=GPIO_PULLUP_DISABLE, 
 			.pull_down_en=GPIO_PULLDOWN_DISABLE, 
-			.intr_type=GPIO_PIN_INTR_DISABLE
+			.intr_type=GPIO_INTR_DISABLE //GPIO_PIN_INTR_DISABLE
 		},{
 			.pin_bit_mask=(1<<PSX_DAT), 
 			.mode=GPIO_MODE_INPUT, 
 			.pull_up_en=GPIO_PULLUP_ENABLE, 
 			.pull_down_en=GPIO_PULLDOWN_DISABLE, 
-			.intr_type=GPIO_PIN_INTR_DISABLE
+			.intr_type=GPIO_INTR_DISABLE //GPIO_PIN_INTR_DISABLE
 		}
 	};
 	gpio_config(&gpioconf[0]);
