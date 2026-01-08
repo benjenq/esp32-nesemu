@@ -1,4 +1,7 @@
-This project has been reorganized for ESP-IDF v5.5.2 with Visual Studio Code
+This project has been reorganized for ESP-IDF v5.5.2 with Visual Studio Code.
+
+*This branch, `idf_5.x`, cannot run and will encounter memory conflicts. The reason is that although the early coding approach can compile successfully, it cannot operate correctly on the current IDF SDK.*
+=======================================================================
 
 ESP32-NESEMU, a Nintendo Entertainment System emulator for the ESP32
 ====================================================================
